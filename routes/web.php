@@ -34,4 +34,20 @@ Route::get('/pay/weixin', 'Weixin\PayController@pay');
 //微信支付通知回调
 Route::post('/weixin/pay/notify', 'Weixin\PayController@notify');      
 //微信支付成功
-Route::get('/pay/success', 'Weixin\PayController@paySuccess');     
+Route::get('/pay/success', 'Weixin\PayController@paySuccess');
+
+
+//详情页
+Route::get('/index', 'Order\KeyController@index');
+//点击次数
+Route::get('/key', 'Order\KeyController@key');
+
+//浏览排序
+Route::get('/getSort', 'Order\KeyController@getSort');
+
+//用哈希来存缓存
+Route::get('/cacheGoods', 'Order\KeyController@cacheGoods');
+
+//微信jssdk
+Route::get('/jsTest', 'Weixin\jssdkController@jsTest');         //微信测试
+Route::get('/getImg', 'Weixin\jssdkController@getImg');         //获取到jssdk上传的照片

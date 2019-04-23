@@ -8,7 +8,7 @@ class PayController extends Controller
 {
     public $value = [];
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';        // 统一下单接口
-    public $notify_url = 'http://1809abc.comcto.com/weixin/pay/notify';     // 支付回调
+    public $notify_url = 'http://1809wanghao.comcto.com/notify';     // 支付回调
     /**
      * 微信支付测试
      */
@@ -33,11 +33,14 @@ class PayController extends Controller
             'notify_url'    => $this->notify_url,        //通知回调地址
             'trade_type'    => 'NATIVE'                         // 交易类型
         ];
-        //echo '<pre>';print_r($order_info);echo '</pre>';die;
+
         $this->values = $order_info;
+        //var_dump($this->values);
         $this->SetSign();
         $xml = $this->ToXml();      //将数组转换为XML
+        //var_dump($xml);exit;
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
+        //var_dump($rs);exit;
         $data =  simplexml_load_string($rs);
         //var_dump($data);echo '<hr>';die;
 //        echo 'return_code: '.$data->return_code;echo '<br>';
@@ -53,13 +56,13 @@ class PayController extends Controller
 //        echo '<hr>';
 //        echo 'err_code: '.$data->err_code;echo '<br>';
 //        echo 'err_code_des'.$data->err_code_des;echo '</br>';
-//        die;
-        //echo '<pre>';print_r($data);echo '</pre>';
+//        echo '<pre>';print_r($data);echo '</pre>';
         //将 code_url 返回给前端，前端生成 支付二维码
         $data = [
             'code_url'  => $data->code_url,
             'oid'       => $oid,
         ];
+        //var_dump($data);exit;
         return view('weixin.pay',$data);
     }
     protected function ToXml()
@@ -175,6 +178,7 @@ class PayController extends Controller
         }
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
         echo $response;
+
     }
     /**
      * 支付成功

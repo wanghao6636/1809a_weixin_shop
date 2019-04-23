@@ -4,6 +4,7 @@ use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Model\CartModel;
 use App\Model\OrderDetailModel;
@@ -44,6 +45,16 @@ class IndexController extends Controller
         }
         header('Refresh:3;url=/order/list');
         echo "生成订单成功";
+    }
+    //点击的次数
+    public function test()
+    {
+        $order_info = [
+            'uid'               => Auth::id(),
+        ];
+        $oid = OrderModel::insertGetId($order_info);
+        var_dump($oid);exit;
+
     }
     /**
      * 订单列表页
