@@ -8,8 +8,11 @@ class jssdkController extends Controller{
     {
         //计算签名
         $nonceStr=Str::random(10);
-        $ticket=getJsapiTicket();
+      $ticket=getJsapiTicket();
+      // $aa=getJsapiTicket();
+        //var_dump($aa);exit;
         $timestamp=time();
+       // var_dump($_SERVER['REQUEST_URL']);exit;
         $current_url=$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URL'];
 
 
