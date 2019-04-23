@@ -22,10 +22,10 @@ class jssdkController extends Controller{
 
 
 
-
+        $appid='wxf45738393e3e870a';
 
         $js_config=[
-            'appId'=> env('WX_APP_ID'), // 必填，公众号的唯一标识
+            'appId'=> env($appid), // 必填，公众号的唯一标识
             'timestamp'=> $timestamp, // 必填，生成签名的时间戳
             'nonceStr'=>$nonceStr, // 必填，生成签名的随机串
             'signature'=>$sign,// 必填，签名
