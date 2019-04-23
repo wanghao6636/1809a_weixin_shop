@@ -28,7 +28,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jssdk.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="jssdk.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/weixin/jssdk.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
@@ -47,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jssdkController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="jssdkController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/jssdkController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
-              <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="18" />
+              <caret line="20" column="32" lean-forward="false" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
               <folding>
                 <element signature="e#45#73#0#PHP" expanded="true" />
               </folding>
@@ -119,6 +119,7 @@
       <find>&gt;</find>
       <find>var</find>
       <find>var_dump</find>
+      <find>$sign</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -470,12 +471,12 @@
       <workItem from="1555934873704" duration="871000" />
       <workItem from="1555943649166" duration="2195000" />
       <workItem from="1555979153508" duration="10492000" />
-      <workItem from="1556008017452" duration="12702000" />
+      <workItem from="1556008017452" duration="13318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50085000" />
+    <option name="totallyTimeSpent" value="50701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -942,16 +943,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/jssdkController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="18" />
-          <folding>
-            <element signature="e#45#73#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/weixin/jssdk.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -965,6 +956,16 @@
             <marker date="1556033995783" expanded="true" signature="1295:1318" ph="..." />
             <marker date="1556033995783" expanded="true" signature="1359:1381" ph="..." />
             <marker date="1556033995783" expanded="true" signature="1423:1446" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/jssdkController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="20" column="32" lean-forward="false" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="e#45#73#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

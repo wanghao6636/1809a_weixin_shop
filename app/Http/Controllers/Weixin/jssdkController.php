@@ -18,6 +18,7 @@ class jssdkController extends Controller{
 
 
         $string1="jsapi_ticket=$ticket&nonceStr=$nonceStr&timestamp=$timestamp&url=$current_url";
+        var_dump($string1);exit;
         $sign=sha1($string1);
 
 
