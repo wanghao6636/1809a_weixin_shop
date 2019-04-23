@@ -30,6 +30,7 @@ class jssdkController extends Controller{
             'nonceStr'=>$nonceStr, // 必填，生成签名的随机串
             'signature'=>$sign,// 必填，签名
         ];
+        var_dump($js_config);exit;
         $data=[
             'js_config'=>$js_config // 必填，需要使用的JS接口列表
         ];
