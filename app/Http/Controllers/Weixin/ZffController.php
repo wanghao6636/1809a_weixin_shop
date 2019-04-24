@@ -9,7 +9,7 @@ class ZffController extends Controller
 {
     function getaccessToken()
     {
-        Cache::pull('access');exit;
+        //Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
             $appid = "wx51db63563c238547";
@@ -86,7 +86,7 @@ class ZffController extends Controller
         return view('weixin.wechat',['url'=>$url]);
     }
     public function ino(Request $request){
-        $access = getWxAccessToken();
+        $access = $this->getaccessToken();
         var_dump($access);exit;
         $arr = $request->input();
         //var_dump($arr);exit;
