@@ -3,9 +3,29 @@ namespace App\Http\Controllers\Weixin;
 
 use Illuminate\Http\Request;
 use App\Model\OrderModel;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 class ZffController extends Controller
 {
+    function getaccessToken()
+    {
+        Cache::pull('access');exit;
+        $access = Cache('access');
+        if (empty($access)) {
+            $appid = "wx51db63563c238547";
+            $appkey = "35bdd2d4a7a832b6d20e4ed43017b66e";
+            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appkey";
+            $info = file_get_contents($url);
+            $arrInfo = json_decode($info, true);
+            $key = "access";
+            $access = $arrInfo['access_token'];
+            $time = $arrInfo['expires_in'];
+
+            cache([$key => $access], $time);
+        }
+        return $access;
+    }
+
     //
     public function wxEvent()
     {
@@ -67,6 +87,7 @@ class ZffController extends Controller
     }
     public function ino(Request $request){
         $access = getWxAccessToken();
+        var_dump($access);exit;
         $arr = $request->input();
         //var_dump($arr);exit;
 
