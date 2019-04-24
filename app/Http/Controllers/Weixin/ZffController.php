@@ -87,7 +87,7 @@ class ZffController extends Controller
     }
     public function ino(Request $request){
         $access = $this->getaccessToken();
-        var_dump($access);exit;
+        //var_dump($access);exit;
         $arr = $request->input();
         //var_dump($arr);exit;
 
