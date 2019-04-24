@@ -9,7 +9,7 @@ class ZffController extends Controller
 {
     function getaccessToken()
     {
-        Cache::pull('access');exit;
+        //Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
             $appid = "wxf45738393e3e870a";
