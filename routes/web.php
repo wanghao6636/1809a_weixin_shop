@@ -63,5 +63,7 @@ Route::get('/del','Weixin\ZffController@del');
 
 //接收微信回调
 Route::get('/opp','Weixin\ZffController@opp');
+Route::get('/ino','Weixin\ZffController@ino');
+
 
 

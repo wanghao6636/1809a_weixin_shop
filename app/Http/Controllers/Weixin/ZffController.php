@@ -55,25 +55,34 @@ class ZffController extends Controller
 
     public  function opp(request $request)
     {
-        //echo 111;exit;
-        //echo print_($_GET);exit;
-        //$arr=$request ->input();
-       // $code=$request['code'];
-       // var_dump($code);exit;
-        //获取accesstoken
-        $code = $_GET['code'];
+
+        //$code = $_GET['code'];
         $Appid="wxf45738393e3e870a";
       //  var_dump($Appid);exit;
         $Secret="04c57ee962b7bf78d85050ce9d213833";
        // var_dump($Secret);exit;
-        $url='http://api.wenxin.qq.com/sns/oauth2/access_token?appid=.$Appid.&secret=.$Secret.&code=.$code.&response_type=authorization_code';
-            //var_dump($url);exit;
-        $response = json_decode(file_get_contents($url),true);
-        $access_token = $response['access_token'];
-        $openid = $response['openid'];
-        //获取用户信心
-        $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
-        $user_info = json_decode(file_get_contents($url),true);
+        $drr="http://1809wanghao.comcto.com/ino";
+        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$Appid&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
+        return view('weixin.wechat',['url'=>$url]);
+    }
+    public function ino(Request $request){
+        $access = getWxAccessToken();
+        $arr = $request->input();
+        var_dump($arr);exit;
+
+        $code = $arr['code'];
+        $user_id = '15';
+        $appid = "wx51db63563c238547";
+        $appkey = "35bdd2d4a7a832b6d20e4ed43017b66e";
+        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appkey&code=$code&grant_type=authorization_code";
+        $info = file_get_contents($accessToken);
+        $arr = json_decode($info,true);
+        //var_dump($arr);exit;
+        $openid = $arr['openid'];
+        $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$openid&lang=zh_CN";
+        $userAccessInfo = file_get_contents($userUrl);
+        $userInfo = json_decode($userAccessInfo, true);
+        //var_dump($userInfo);exit;
     }
 
 }
