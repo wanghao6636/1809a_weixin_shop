@@ -15,13 +15,13 @@
       <file leaf-file-name="ZffController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/ZffController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="29" column="79" lean-forward="false" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="79" />
+            <state relative-caret-position="437">
+              <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
               <folding>
                 <element signature="e#45#73#0#PHP" expanded="true" />
-                <marker date="1556076958705" expanded="true" signature="781:1578" ph="..." />
-                <marker date="1556076958705" expanded="true" signature="1127:1551" ph="..." />
-                <marker date="1556076958705" expanded="true" signature="1158:1517" ph="..." />
+                <marker date="1556077139417" expanded="true" signature="783:1580" ph="..." />
+                <marker date="1556077139417" expanded="true" signature="1129:1553" ph="..." />
+                <marker date="1556077139417" expanded="true" signature="1160:1519" ph="..." />
               </folding>
             </state>
           </provider>
@@ -324,12 +324,12 @@
       <workItem from="1555943649166" duration="2195000" />
       <workItem from="1555979153508" duration="10492000" />
       <workItem from="1556008017452" duration="13503000" />
-      <workItem from="1556066604702" duration="8261000" />
+      <workItem from="1556066604702" duration="8414000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59147000" />
+    <option name="totallyTimeSpent" value="59300000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -849,13 +849,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/ZffController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="29" column="79" lean-forward="false" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="79" />
+        <state relative-caret-position="437">
+          <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
           <folding>
             <element signature="e#45#73#0#PHP" expanded="true" />
-            <marker date="1556076958705" expanded="true" signature="781:1578" ph="..." />
-            <marker date="1556076958705" expanded="true" signature="1127:1551" ph="..." />
-            <marker date="1556076958705" expanded="true" signature="1158:1517" ph="..." />
+            <marker date="1556077139417" expanded="true" signature="783:1580" ph="..." />
+            <marker date="1556077139417" expanded="true" signature="1129:1553" ph="..." />
+            <marker date="1556077139417" expanded="true" signature="1160:1519" ph="..." />
           </folding>
         </state>
       </provider>

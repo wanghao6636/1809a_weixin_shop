@@ -8,7 +8,7 @@ class ZffController extends Controller
     public function wxEvent()
     {
         $xml_str = file_get_contents("php://input");
-        $log_str = date('Y-m-d H:i:s') . ' : ' . $xml_str . "\n";
+        $log_str = date('Y-m-d H:i:s') . ' : ' . $xml_str . "\n\n";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
         $xml_obj = simplexml_load_string($xml_str);
 //        print_r($log_str);exit;
