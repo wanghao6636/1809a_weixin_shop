@@ -51,3 +51,11 @@ Route::get('/cacheGoods', 'Order\KeyController@cacheGoods');
 //微信jssdk
 Route::get('/jsTest', 'Weixin\jssdkController@jsTest');         //微信测试
 Route::get('/getImg', 'Weixin\jssdkController@getImg');         //获取到jssdk上传的照片
+
+
+
+//图文
+Route::get('/valid','Weixin\ZffController@wxEvent');
+
+
+
