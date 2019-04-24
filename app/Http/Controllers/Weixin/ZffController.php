@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Weixin;
 use Illuminate\Http\Request;
 use App\Model\OrderModel;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 class ZffController extends Controller
 {
@@ -104,7 +105,28 @@ class ZffController extends Controller
         $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$openid&lang=zh_CN";
         $userAccessInfo = file_get_contents($userUrl);
         $userInfo = json_decode($userAccessInfo, true);
-        var_dump($userInfo);exit;
+        //var_dump($userInfo);exit;
+        $name = $userInfo['nickname'];
+        $sex = $userInfo['sex'];
+        $headimgurl = $userInfo['headimgurl'];
+        $updatedata = [
+            'openid'=>$openid
+        ];
+
+        $wechatdata = [
+            'user_name'=>$name,
+            'user_sex'=>$sex,
+            'headimgurl'=>$headimgurl,
+            'openid'=>$openid
+        ];
+
+        $res = DB::table('wechat')->where('openid',$openid)->first();
+        if(empty($res)){
+            DB::table('wechat')->insert($wechatdata);
+        }else{
+            echo "授权成功";
+
+        }
     }
 
 }
