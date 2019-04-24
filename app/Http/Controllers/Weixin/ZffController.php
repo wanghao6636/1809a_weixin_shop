@@ -57,16 +57,17 @@ class ZffController extends Controller
     {
         //echo 111;exit;
         //echo print_($_GET);exit;
-        $arr=$request ->input();
-        $code=$request['code'];
+        //$arr=$request ->input();
+       // $code=$request['code'];
        // var_dump($code);exit;
         //获取accesstoken
+        $code = $_GET['code'];
         $Appid="wxf45738393e3e870a";
       //  var_dump($Appid);exit;
         $Secret="04c57ee962b7bf78d85050ce9d213833";
        // var_dump($Secret);exit;
         $url='http://api.wenxin.qq.com/sns/oauth2/access_token?appid=.$Appid.&secret=.$Secret.&code=.$code.&response_type=authorization_code';
-            var_dump($url);exit;
+            //var_dump($url);exit;
         $response = json_decode(file_get_contents($url),true);
         $access_token = $response['access_token'];
         $openid = $response['openid'];
