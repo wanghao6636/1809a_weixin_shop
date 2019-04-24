@@ -15,7 +15,7 @@ class ZffController extends Controller
         $msg_type = $xml_obj->MsgType;          //消息
         $open_id = $xml_obj->FromUserName;      //openid
         $app = $xml_obj->ToUserName;            // 公众ID
-        if($msg_type=='text'){          //处理文本消息
+        if($msg_type=='text'){          //文本消息
             if(strpos($xml_obj->Content,'最新商品') !== false ){
                  $response_xml = '<xml>
                       <ToUserName><![CDATA['.$open_id.']]></ToUserName>
