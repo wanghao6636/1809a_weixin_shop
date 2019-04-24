@@ -58,5 +58,10 @@ Route::get('/getImg', 'Weixin\jssdkController@getImg');         //获取到jssdk
 Route::get('/valid','Weixin\ZffController@wxEvent');
 
 
+Route::get('/del','Weixin\ZffController@del');
+
+
+//接收微信回调
+Route::get('/opp','Weixin\ZffController@opp');
 
 
