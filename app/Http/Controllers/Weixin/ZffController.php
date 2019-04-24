@@ -98,8 +98,9 @@ class ZffController extends Controller
         $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appkey&code=$code&grant_type=authorization_code";
         $info = file_get_contents($accessToken);
         $arr = json_decode($info,true);
-        var_dump($arr);exit;
+        //var_dump($arr);exit;
         $openid = $arr['openid'];
+        var_dump($openid);exit;
         $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$openid&lang=zh_CN";
         $userAccessInfo = file_get_contents($userUrl);
         $userInfo = json_decode($userAccessInfo, true);
