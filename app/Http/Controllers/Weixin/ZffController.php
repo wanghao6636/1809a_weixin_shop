@@ -68,12 +68,12 @@ class ZffController extends Controller
     public function ino(Request $request){
         $access = getWxAccessToken();
         $arr = $request->input();
-        var_dump($arr);exit;
+        //var_dump($arr);exit;
 
         $code = $arr['code'];
         $user_id = '15';
-        $appid = "wx51db63563c238547";
-        $appkey = "35bdd2d4a7a832b6d20e4ed43017b66e";
+        $appid = "wxf45738393e3e870a";
+        $appkey = "04c57ee962b7bf78d85050ce9d213833";
         $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appkey&code=$code&grant_type=authorization_code";
         $info = file_get_contents($accessToken);
         $arr = json_decode($info,true);
@@ -82,7 +82,7 @@ class ZffController extends Controller
         $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$openid&lang=zh_CN";
         $userAccessInfo = file_get_contents($userUrl);
         $userInfo = json_decode($userAccessInfo, true);
-        //var_dump($userInfo);exit;
+        var_dump($userInfo);exit;
     }
 
 }
