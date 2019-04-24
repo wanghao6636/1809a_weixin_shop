@@ -9,11 +9,11 @@ class ZffController extends Controller
 {
     function getaccessToken()
     {
-        //Cache::pull('access');exit;
+        Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
-            $appid = "wx51db63563c238547";
-            $appkey = "35bdd2d4a7a832b6d20e4ed43017b66e";
+            $appid = "wxf45738393e3e870a";
+            $appkey = "04c57ee962b7bf78d85050ce9d213833";
             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appkey";
             $info = file_get_contents($url);
             $arrInfo = json_decode($info, true);
@@ -100,7 +100,7 @@ class ZffController extends Controller
         $arr = json_decode($info,true);
         //var_dump($arr);exit;
         $openid = $arr['openid'];
-        var_dump($openid);exit;
+        //var_dump($openid);exit;
         $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$openid&lang=zh_CN";
         $userAccessInfo = file_get_contents($userUrl);
         $userInfo = json_decode($userAccessInfo, true);
