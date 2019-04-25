@@ -13,9 +13,9 @@ class ZffController extends Controller
         //Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
-            $appid = "wxf45738393e3e870a";
-            $appkey = "04c57ee962b7bf78d85050ce9d213833";
-            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appkey";
+//            $appid = "wxf45738393e3e870a";
+//            $appkey = "04c57ee962b7bf78d85050ce9d213833";
+            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env(WX_APP_ID).'&secret='.env(WX_APP_SEC).'";
             $info = file_get_contents($url);
             $arrInfo = json_decode($info, true);
             $key = "access";
@@ -76,12 +76,12 @@ class ZffController extends Controller
 
     public  function opp(request $request)
     {
-        $Appid="wxf45738393e3e870a";
-      //  var_dump($Appid);exit;
-        $Secret="04c57ee962b7bf78d85050ce9d213833";
+//        $Appid="wxf45738393e3e870a";
+//      //  var_dump($Appid);exit;
+//        $Secret="04c57ee962b7bf78d85050ce9d213833";
        // var_dump($Secret);exit;
         $drr="http://1809wanghao.comcto.com/ino";
-        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$Appid&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
+        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env(WX_APP_ID).'&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
         return view('weixin.wechat',['url'=>$url]);
     }
 
@@ -92,9 +92,9 @@ class ZffController extends Controller
         //var_dump($arr);exit;
 
         $code = $arr['code'];
-        $appid = "wxf45738393e3e870a";
-        $appkey = "04c57ee962b7bf78d85050ce9d213833";
-        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appkey&code=$code&grant_type=authorization_code";
+//        $appid = "wxf45738393e3e870a";
+//        $appkey = "04c57ee962b7bf78d85050ce9d213833";
+        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env(WX_APP_ID).'&secret='.env(WX_APP_SEC).'&code=$code&grant_type=authorization_code";
         $info = file_get_contents($accessToken);
         $arr = json_decode($info,true);
         //var_dump($arr);exit;
@@ -122,7 +122,7 @@ class ZffController extends Controller
         if(empty($res)){
             DB::table('wechat')->insert($wechatdata);
         }else{
-            echo "<h3 color='red'>授权成功</h3>";
+            echo "<h5>授权成功</h5>";
 
         }
     }
