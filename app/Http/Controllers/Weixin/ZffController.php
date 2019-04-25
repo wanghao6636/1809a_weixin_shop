@@ -122,7 +122,7 @@ class ZffController extends Controller
         if(empty($res)){
             DB::table('wechat')->insert($wechatdata);
         }else{
-            echo "授权成功";
+            echo "<h3 color='red'>授权成功</h3>";
 
         }
     }
