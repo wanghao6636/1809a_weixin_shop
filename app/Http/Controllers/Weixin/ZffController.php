@@ -15,7 +15,7 @@ class ZffController extends Controller
         if (empty($access)) {
 //            $appid = "wxf45738393e3e870a";
 //            $appkey = "04c57ee962b7bf78d85050ce9d213833";
-            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env(WX_APP_ID).'&secret='.env(WX_APP_SEC).'";
+            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APP_ID').'&secret='.env('WX_APP_SEC').'";
             $info = file_get_contents($url);
             $arrInfo = json_decode($info, true);
             $key = "access";
@@ -81,7 +81,7 @@ class ZffController extends Controller
 //        $Secret="04c57ee962b7bf78d85050ce9d213833";
        // var_dump($Secret);exit;
         $drr="http://1809wanghao.comcto.com/ino";
-        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env(WX_APP_ID).'&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
+        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APP_ID').'&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
         return view('weixin.wechat',['url'=>$url]);
     }
 
@@ -94,7 +94,7 @@ class ZffController extends Controller
         $code = $arr['code'];
 //        $appid = "wxf45738393e3e870a";
 //        $appkey = "04c57ee962b7bf78d85050ce9d213833";
-        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env(WX_APP_ID).'&secret='.env(WX_APP_SEC).'&code=$code&grant_type=authorization_code";
+        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APP_ID').'&secret='.env('WX_APP_SEC').'&code=$code&grant_type=authorization_code";
         $info = file_get_contents($accessToken);
         $arr = json_decode($info,true);
         //var_dump($arr);exit;
