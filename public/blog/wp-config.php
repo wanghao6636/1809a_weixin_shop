@@ -1,22 +1,21 @@
-<?php
-/**
- *  * WordPress基础配置文件。
- *   *
- *    * 这个文件被安装程序用于自动生成wp-config.php配置文件，
- *     * 您可以不使用网站，您需要手动复制这个文件，
- *      * 并重命名为“wp-config.php”，然后填入相关信息。
+
+rdPress基础配置文件。
+ *
+ *  * 这个文件被安装程序用于自动生成wp-config.php配置文件，
+ *   * 您可以不使用网站，您需要手动复制这个文件，
+ *    * 并重命名为“wp-config.php”，然后填入相关信息。
+ *     *
+ *      * 本文件包含以下配置选项：
  *       *
- *        * 本文件包含以下配置选项：
- *         *
- *          * * MySQL设置
- *           * * 密钥
- *            * * 数据库表名前缀
- *             * * ABSPATH
+ *        * * MySQL设置
+ *         * * 密钥
+ *          * * 数据库表名前缀
+ *           * * ABSPATH
+ *            *
+ *             * @link https://codex.wordpress.org/zh-cn:%E7%BC%96%E8%BE%91_wp-config.php
  *              *
- *               * @link https://codex.wordpress.org/zh-cn:%E7%BC%96%E8%BE%91_wp-config.php
- *                *
- *                 * @package WordPress
- *                  */
+ *               * @package WordPress
+ *                */
 
 // ** MySQL 设置 - 具体信息来自您正在使用的主机 ** //
 // /** WordPress数据库的名称 */
