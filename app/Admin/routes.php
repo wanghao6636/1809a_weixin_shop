@@ -11,10 +11,10 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('admin.home');
-
+    //商品
     $router->resource('goods', GoodsController::class);
-
+    //微信用户列表
     $router->resource('Stac', StacController::class);
-
+    //订单
     $router->resource('order', OrdersController::class);
 });
