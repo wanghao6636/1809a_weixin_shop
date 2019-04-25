@@ -12,4 +12,9 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('admin.home');
 
+    $router->resource('goods', GoodsController::class);
+
+    $router->resource('Stac', StacController::class);
+
+    $router->resource('order', OrdersController::class);
 });
