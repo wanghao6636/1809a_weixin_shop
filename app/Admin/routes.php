@@ -17,4 +17,6 @@ Route::group([
     $router->resource('Stac', StacController::class);
     //订单
     $router->resource('order', OrdersController::class);
+
+//    $router->resource('order', OrdersController::class);
 });
