@@ -21,6 +21,7 @@ class ZffController extends Controller
             $arrInfo = json_decode($info, true);
             $key = "access";
             $access = $arrInfo['access_token'];
+            //var_dump($access);exit;
             $time = $arrInfo['expires_in'];
 
             cache([$key => $access], $time);
