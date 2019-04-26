@@ -67,5 +67,10 @@ Route::get('/ino','Weixin\ZffController@ino');
 Route::get('getaccessToken','Weixin\ZffController@getaccessToken');
 
 
+//
+//Route::any('info','Weixin\ZffController@info');
+Route::any('createadd','Weixin\ZffController@createadd');
+
+
 
 
