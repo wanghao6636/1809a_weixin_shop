@@ -54,7 +54,12 @@ class ZffController extends Controller
         ]);
         $res_str = $response->getBody();
         //var_dump($json);exit;
-        return view('weixin.secod',['url'=>$url]);
+        $ass = json_decode($res_str,true);
+        $ticket=$ass['ticket'];
+        //var_dump($ticket);exit;
+        $tkurl="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket";
+        //var_dump($tkurl);exit;
+        return view('weixin.secod',['tkurl'=>$tkurl]);
     }
 
 
@@ -366,6 +371,38 @@ class ZffController extends Controller
             'body' => $strJson
         ]);
         
+        $res_str = $response->getBody();
+        //var_dump($res_str);
+        return $res_str;
+    }
+
+    //群发
+    public function openiddo(Request $request){
+        $objurl = new Client();
+        $access = $this->getaccessToken();
+        //获取测试号下所有用户的openid
+        $userurl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=$access";
+        $info = file_get_contents($userurl);
+        $arrInfo = json_decode($info, true);
+        //var_dump($arrInfo);exit;
+        $data = $arrInfo['data'];
+        $openid = $data['openid'];
+        //调用接口根据openid群发
+        $msgurl = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=$access";
+        $content = "欢迎新用户";
+        $arr = array(
+            'touser'=>$openid,
+            'msgtype'=>"text",
+            'text'=>[
+                'content'=>$content,
+            ],
+        );
+        //print_r($arr);
+        $strjson = json_encode($arr,JSON_UNESCAPED_UNICODE);
+        $objurl = new Client();
+        $response = $objurl->request('POST',$msgurl,[
+            'body' => $strjson
+        ]);
         $res_str = $response->getBody();
         //var_dump($res_str);
         return $res_str;
