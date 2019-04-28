@@ -67,6 +67,8 @@ Route::get('/ino','Weixin\ZffController@ino');
 Route::get('getaccessToken','Weixin\ZffController@getaccessToken');
 
 
+Route::get('/secod','Weixin\ZffController@secod');
+
 //
 //Route::any('info','Weixin\ZffController@info');
 Route::any('xmladd','Weixin\ZffController@xmladd');

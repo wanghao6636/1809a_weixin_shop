@@ -15,7 +15,7 @@ class PayController extends Controller
     public function pay()
     {
         $oid = intval($_GET['oid']);    // 订单id
-        $o_info = OrderModel::where(['oid'=>$oid])->first();
+        $o_info = OrderModel::weixin_orders(['oid'=>$oid])->first();
         if(!$o_info){
             die("订单不存在");
         }

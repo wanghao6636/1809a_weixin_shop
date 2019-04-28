@@ -30,6 +30,34 @@ class ZffController extends Controller
         return $access;
     }
 
+    public  function secod(Request $request)
+    {
+        $access=$this->getaccessToken();
+        //var_dump($access);exit;
+        $arr=$request->input();
+        //var_dump($arr);exit;
+        $url="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=$access";
+       // var_dump($url);exit;
+        $data=[
+            'expire_seconds'=>2592000,
+            'action_name'=>"QR_STR_SCENE",
+            'action_info'=>[
+                    'scene'=>[
+                        'scene_id'=>1,
+                    ],
+            ]
+        ];
+        $json = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $Client=new Client();
+        $response = $Client->request('POST',$url,[
+            'body' => $json
+        ]);
+        $res_str = $response->getBody();
+        //var_dump($json);exit;
+        return view('weixin.secod',['url'=>$url]);
+    }
+
+
     //
     public function wxEvent()
     {
@@ -79,12 +107,12 @@ class ZffController extends Controller
 
     public  function opp(request $request)
     {
-//        $Appid="wxf45738393e3e870a";
+        $Appid="wxf45738393e3e870a";
 //      //  var_dump($Appid);exit;
-//        $Secret="04c57ee962b7bf78d85050ce9d213833";
+       // $Secret="04c57ee962b7bf78d85050ce9d213833";
        // var_dump($Secret);exit;
         $drr="http://1809wanghao.comcto.com/ino";
-        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APP_ID').'&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
+        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$Appid&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
         return view('weixin.wechat',['url'=>$url]);
     }
 
@@ -95,9 +123,9 @@ class ZffController extends Controller
         //var_dump($arr);exit;
 
         $code = $arr['code'];
-//        $appid = "wxf45738393e3e870a";
-//        $appkey = "04c57ee962b7bf78d85050ce9d213833";
-        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APP_ID').'&secret='.env('WX_APP_SEC').'&code=$code&grant_type=authorization_code";
+       $appid = "wxf45738393e3e870a";
+       $appkey = "04c57ee962b7bf78d85050ce9d213833";
+        $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appkey&code=$code&grant_type=authorization_code";
         $info = file_get_contents($accessToken);
         $arr = json_decode($info,true);
         //var_dump($arr);exit;
@@ -297,7 +325,6 @@ class ZffController extends Controller
 
 
 
-
     //微信分类
     public function createadd(Request $request){
         $access = $this->getaccessToken();
@@ -305,7 +332,7 @@ class ZffController extends Controller
         $arr = array(
             'button'=>array(
                 array(
-                    "name"=>"︿(￣︶￣)︿",
+                    "name"=>"不敢问",
                     "type"=>"click",
                     "key"=>"aaa",
                     "sub_button"=>array(
@@ -318,8 +345,16 @@ class ZffController extends Controller
                 ),
                 array(
                     "name"=>"搞笑",
-                    "type"=>"view",
-                    "url"=>"https://img04.sogoucdn.com/app/a/100520024/ee89b873bc8f90af0f7c6de5d9bcade4"
+                    "type"=>"click",
+                    "key"=>"bbb",
+                    'sub_button'=>array(
+                        array(
+            "name"=>"搞笑",
+            "type"=>"view",
+            "url"=>"https://img04.sogoucdn.com/app/a/100520024/ee89b873bc8f90af0f7c6de5d9bcade4"
+
+                        ),
+                    ),
                 ),
             ),
         );
