@@ -19,6 +19,7 @@ class ZffController extends Controller
             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appkey";
             $info = file_get_contents($url);
             $arrInfo = json_decode($info, true);
+           // var_dump($arrInfo);exit;
             $key = "access";
             $access = $arrInfo['access_token'];
             //var_dump($access);exit;
@@ -130,12 +131,171 @@ class ZffController extends Controller
     }
 
 
+
+    public function xmladd(Request $request)
+    {
+
+        $client = new Client();
+        //var_dump($client);exit;
+        //echo $request->input('echostr');
+        $str = file_get_contents("php://input");
+        //var_dump($str);exit;
+        $objxml = simplexml_load_string($str);
+        //var_dump($objxml);exit;
+        file_put_contents("/tmp/1809a_weixin.log", $str, FILE_APPEND);
+
+
+        $Event = $objxml->Event;
+        $FromUserName = $objxml->FromUserName;
+        $ToUserName = $objxml->ToUserName;
+        $MsgType = $objxml->MsgType;
+        $MediaId = $objxml->MediaId;
+        $Content = $objxml->Content;
+
+        $access = $this->getaccessToken();
+        $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$FromUserName&lang=zh_CN";
+        $userAccessInfo = file_get_contents($userUrl);
+        $userInfo = json_decode($userAccessInfo, true);
+        //var_dump($userInfo);exit;
+        $name = $userInfo['nickname'];
+        $sex = $userInfo['sex'];
+        $headimgurl = $userInfo['headimgurl'];
+        $openid1 = $userInfo['openid'];
+        if ($Event == 'subscribe') {
+            $data = DB::table('kaoshi')->where('openid', $FromUserName)->count();
+            //print_r($data);die;
+            if ($data == '0') {
+                $weiInfo = [
+                    'name' => $name,
+                    'sex' => $sex,
+                    'img' => $headimgurl,
+                    'openid' => $openid1,
+                    'time' => time()
+                ];
+                DB::table('kaoshi')->insert($weiInfo);
+
+                //回复消息
+                $time = time();
+                $content = "关注本公众号成功";
+                $xmlStr = "
+                   <xml>
+                        <ToUserName><![CDATA[$FromUserName]]></ToUserName>
+                        <FromUserName><![CDATA[$ToUserName]]></FromUserName>
+                        <CreateTime>$time</CreateTime>
+                        <MsgType><![CDATA[text]]></MsgType>
+                        <Content><![CDATA[$content]]></Content>
+                   </xml>";
+                echo $xmlStr;
+
+            }else{
+                $time = time();
+                $content = "欢迎" . $name . "回来";
+                $xmlStr = "
+                   <xml>
+                        <ToUserName><![CDATA[$FromUserName]]></ToUserName>
+                        <FromUserName><![CDATA[$ToUserName]]></FromUserName>
+                        <CreateTime>$time</CreateTime>
+                        <MsgType><![CDATA[text]]></MsgType>
+                        <Content><![CDATA[$content]]></Content>
+                   </xml>";
+                echo $xmlStr;
+            }
+
+        }
+
+
+
+        if($MsgType=='text'){
+            if($Content == '最新商品'){
+                $goodsHotInfo=DB::table('weixin_goods')->orderBy('create_time','desc')->limit(5)->get(['goods_id','goods_name','goods_img','goods_selfprice'])->toArray();
+                $goods_id = $goodsHotInfo[0]->goods_id;
+                $ToUserName = $FromUserName;
+                $FormUserName = "gh_cf7ceceb3c6e";
+                $CreateTime = time();
+                $MsgType = 'news';
+                $ArticleCount = 1;
+                $Titkle = '最新消息';
+                $Description = '最新商品信息';
+                $PicUrl = 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4224459274,772817564&fm=27&gp=0.jpg';
+                $Url = 'http://1809wanghao.comcto.com/jsdemo?goods='.$goods_id;
+
+                $response_xml = "
+                <xml>
+                     <ToUserName><![CDATA[$ToUserName]]></ToUserName>
+                     <FromUserName><![CDATA[$FormUserName]]></FromUserName>
+                     <CreateTime>$CreateTime</CreateTime>
+                     <MsgType><![CDATA[$MsgType]]></MsgType>
+                     <ArticleCount>$ArticleCount</ArticleCount>
+                     <Articles>
+                          <item>
+                               <Title><![CDATA[$Titkle]]></Title>
+                               <Description><![CDATA[$Description]]></Description>
+                               <PicUrl><![CDATA[$PicUrl]]></PicUrl>
+                               <Url><![CDATA[$Url]]></Url>
+                          </item>
+                     </Articles>
+                </xml>
+                ";
+                echo $response_xml;
+            }
+
+
+        }else if($MsgType=='image') {
+            $access = $this->getaccessToken();
+            $url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            $response = $client->get(new Uri($url));
+            $headers = $response->getHeaders();
+            $file_info = $headers['Content-disposition'][0];
+            $file_name = rtrim(substr($file_info, -20), '"');
+            $new_file_name = "/tmp/image/" . date("Y-m-d H:i:s") . $file_name;
+
+            $rs = Storage::put($new_file_name, $response->getBody());
+            //print_r($rs);exit;
+//            $time = time();
+//            $res_str = file_get_contents($url);
 //
-//    public function info(Request $request)
-//    {
-//        $client = new Client();
+//            file_put_contents("/tmp/image/$time.jpg", $res_str, FILE_APPEND);
+            if ($rs == '1') {
+                //echo '1111';exit;
+                $dataInfo = [
+                    "nickname" => $userInfo['nickname'],
+                    "openid" => $openid1,
+                    "img" => $new_file_name
+                ];
+                //var_dump($dataInfo);exit;
+                $imginfo = DB::table('image')->insert($dataInfo);
+
+            }
+        }else if ($MsgType == 'voice') {
+            $access = $this->getaccessToken();
+            $vourl = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            $response = $client->get(new Uri($vourl));
+            $headers = $response->getHeaders();
+            $voice_info = $headers['Content-disposition'][0];
+            $voice_name = rtrim(substr($voice_info, -20), '"');
+            $new_voice_name = "/tmp/voice/" . date("Y-m-d H:i:s") . $voice_name;
+
+            $vors = Storage::put($new_voice_name, $response->getBody());
+            //print_r($vors);exit;
+//            $time = time();
+//            $res_str = file_get_contents($url);
 //
-//    }
+//            file_put_contents("/tmp/image/$time.jpg", $res_str, FILE_APPEND);
+            if ($vors == '1') {
+                //echo '1111';exit;
+                $dataInfo = [
+                    "nickname" => $userInfo['nickname'],
+                    "openid" => $openid1,
+                    "voice" => $new_voice_name
+                ];
+                //var_dump($dataInfo);exit;
+                $imginfo = DB::table('voice')->insert($dataInfo);
+            }
+        }
+    }
+
+
+
 
 
     //微信分类
@@ -170,8 +330,11 @@ class ZffController extends Controller
         $response = $objurl->request('POST',$url,[
             'body' => $strJson
         ]);
+        
         $res_str = $response->getBody();
         //var_dump($res_str);
         return $res_str;
     }
+
+
 }

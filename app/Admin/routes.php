@@ -18,5 +18,5 @@ Route::group([
     //订单
     $router->resource('order', OrdersController::class);
 
-
+    $router->resource('prr', PrrController::class);
 });

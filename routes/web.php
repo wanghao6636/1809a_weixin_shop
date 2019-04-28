@@ -69,6 +69,7 @@ Route::get('getaccessToken','Weixin\ZffController@getaccessToken');
 
 //
 //Route::any('info','Weixin\ZffController@info');
+Route::any('xmladd','Weixin\ZffController@xmladd');
 Route::any('createadd','Weixin\ZffController@createadd');
 
 
