@@ -27,9 +27,18 @@ class PrrController extends Controller
         $access = $this->getaccessToken();
        // var_dump($access);exit;
         $url="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=$access&type=image";
-        //var_dump($url);exit;
-        $Client=new GuzzleHttp\Client();
-        var_dump($Clien);exit;
+       // var_dump($url);exit;
+        $Client=new Client();
+        //var_dump($Clien);exit;
+        $response=$Client->request('post',$url,[
+                'multipart'=>[
+                [
+                    'name'=>'media',
+                    'contents'=>fopen('image/goods_jpg','r'),
+                ]
+            ]
+        ]);
+        //var_dump($response);exit;
         return $content
             ->header('Index')
             ->description('description')
