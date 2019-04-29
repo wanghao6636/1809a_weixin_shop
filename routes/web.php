@@ -18,6 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//微信开头
+Route::get('valid', 'Weixin\ZffController@valid');
+
+//推送
+Route::post('valid', 'Weixin\ZffController@wxEvent');
+
+
 
 //购物车
 Route::get('cart', 'CartController@index');
@@ -75,6 +82,9 @@ Route::get('/key','Weixin\ZffController@key');
 Route::any('xmladd','Weixin\ZffController@xmladd');
 Route::any('createadd','Weixin\ZffController@createadd');
 
+
+//公众号搜索到商品
+Route::get('/serch','Weixin\ZffController@serch');
 
 
 

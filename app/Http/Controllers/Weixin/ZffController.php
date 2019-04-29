@@ -10,6 +10,26 @@ use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 class ZffController extends Controller
 {
+
+    public function valid()
+    {
+        echo $_GET['echostr'];
+    }
+
+    public function wxEvent()
+    {
+        $xml_str=file_get_contents("php://input");
+        //var_dump($xml_str);exit;
+        $log_str=date('Y-m-d H:i:s');
+        $str=$xml_str.$log_str."\n";
+        file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
+        //var_dump($str);exit;
+        $xml_obj=simplexml_load_string($xml_str);
+        //var_dump($xml_obj);exit;
+        $open_id=$xml_obj;
+        //var_dump($open_id);exit;
+    }
+
     function getaccessToken()
     {
         //Cache::pull('access');exit;
@@ -33,7 +53,6 @@ class ZffController extends Controller
 
     public  function secod(Request $request)
     {
-
         $access=$this->getaccessToken();
         //var_dump($access);exit;
         $arr=$request->input();
@@ -83,6 +102,13 @@ class ZffController extends Controller
         return view('weixin.secod',$data);
     }
 
+    //公众号搜索商品，图文serch
+    public  function serch()
+    {
+
+    }
+
+
 //    public function key(Request $request)
 //    {
 //        $input=$request->all();
@@ -128,41 +154,40 @@ class ZffController extends Controller
 //    }
 
 
-
-
-
     //
-    public function wxEvent()
-    {
-        $xml_str = file_get_contents("php://input");
-        $log_str = date('Y-m-d H:i:s') . ' : ' . $xml_str . "\n";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
-        $xml_obj = simplexml_load_string($xml_str);
-        //print_r($xml_str);exit;
-        $msg_type = $xml_obj->MsgType;          //消息
-        $open_id = $xml_obj->FromUserName;      //openid
-        $app = $xml_obj->ToUserName;            // 公众ID
-        if($open_id=='text'){          //文本消息
-            if(strpos($xml_obj->Content,'最新商品') !== false ){
-                 $response_xml = '<xml>
-                      <ToUserName><![CDATA['.$open_id.']]></ToUserName>
-                      <FromUserName><![CDATA['.$app.']]></FromUserName>
-                      <CreateTime>'.time().'</CreateTime>
-                      <MsgType><![CDATA[news]]></MsgType>
-                      <ArticleCount>1</ArticleCount>
-                      <Articles>
-                        <item>
-                          <Title><![CDATA[最新商品]]></Title>
-                          <Description><![CDATA[IPhoneX]]></Description>
-                          <PicUrl><![CDATA[http://pic.sogou.com/pics/recompic/detail.jsp?category=%E6%90%9E%E7%AC%91&tag=%E6%90%9E%E7%AC%91%E4%BA%BA%E7%89%A9#14%26487681]]></PicUrl>
-                          <Url><![CDATA[http://pic.sogou.com/pics/recompic/detail.jsp?category=%E6%90%9E%E7%AC%91&tag=%E6%90%9E%E7%AC%91%E4%BA%BA%E7%89%A9#23%26497092]]></Url>
-                        </item>
-                      </Articles>
-                    </xml>';
-            }http:
-        }
-        echo $response_xml;
-    }
+//    public function wxEvent()
+//    {
+//        $xml_str = file_get_contents("php://input");
+//        //var_dump($xml_str);exit;
+//        $log_str = date('Y-m-d H:i:s'). ':' .$xml_str ."\n";
+//        //var_dump($log_str);exit;
+//        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+//        $xml_obj =simplexml_load_string($xml_str);
+//        //var_dump($xml_obj);exit;
+//        $msg_type =$this->MsgType;          //消息
+//        $open_id = $xml_obj->FromUserName;      //openid
+//        $app = $xml_obj->ToUserName;            // 公众ID
+//        if($open_id=='text'){          //文本消息
+//            if(strpos($xml_obj->Content,'最新商品') !== false ){
+//                 $response_xml = '<xml>
+//                      <ToUserName><![CDATA['.$open_id.']]></ToUserName>
+//                      <FromUserName><![CDATA['.$app.']]></FromUserName>
+//                      <CreateTime>'.time().'</CreateTime>
+//                      <MsgType><![CDATA[news]]></MsgType>
+//                      <ArticleCount>1</ArticleCount>
+//                      <Articles>
+//                        <item>
+//                          <Title><![CDATA[最新商品]]></Title>
+//                          <Description><![CDATA[IPhoneX]]></Description>
+//                          <PicUrl><![CDATA[http://pic.sogou.com/pics/recompic/detail.jsp?category=%E6%90%9E%E7%AC%91&tag=%E6%90%9E%E7%AC%91%E4%BA%BA%E7%89%A9#14%26487681]]></PicUrl>
+//                          <Url><![CDATA[http://pic.sogou.com/pics/recompic/detail.jsp?category=%E6%90%9E%E7%AC%91&tag=%E6%90%9E%E7%AC%91%E4%BA%BA%E7%89%A9#23%26497092]]></Url>
+//                        </item>
+//                      </Articles>
+//                    </xml>';
+//            }http:
+//        }
+//        echo $response_xml;
+//    }
 
     //任务周期
     public function del(){
@@ -398,7 +423,7 @@ class ZffController extends Controller
 
 
 
-    //微信分类
+    //微信菜单分类
     public function createadd(Request $request){
         $access = $this->getaccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$access";
@@ -417,7 +442,7 @@ class ZffController extends Controller
                     ),
                 ),
                 array(
-                    "name"=>"搞笑",
+                    "name"=>"最新福利",
                     "type"=>"click",
                     "key"=>"bbb",
                     'sub_button'=>array(
