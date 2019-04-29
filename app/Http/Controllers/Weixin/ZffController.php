@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Weixin;
 use Illuminate\Http\Request;
 use App\Model\OrderModel;
 use App\Model\GoodsModel;
+use App\Model\StacModel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
@@ -211,16 +212,19 @@ class ZffController extends Controller
        // var_dump($Secret);exit;
         $drr="http://1809wanghao.comcto.com/ino";
         $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$Appid&redirect_uri=$drr&response_type=code&scope=snsapi_userinfo&state=a-z#wechat_redirect";
+        //var_dump($url);exit;
         return view('weixin.wechat',['url'=>$url]);
     }
 
     public function ino(Request $request){
+
         $access = $this->getaccessToken();
         //var_dump($access);exit;
         $arr = $request->input();
-        //var_dump($arr);exit;
-
+       // var_dump($arr);exit;
+       // echo 1111;exit;
         $code = $arr['code'];
+        //var_dump($code);exit;
        $appid = "wxf45738393e3e870a";
        $appkey = "04c57ee962b7bf78d85050ce9d213833";
         $accessToken = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appkey&code=$code&grant_type=authorization_code";
@@ -247,7 +251,8 @@ class ZffController extends Controller
             'openid'=>$openid
         ];
 
-        $res = DB::table('wechat')->where('openid',$openid)->first();
+        $res = DB::table('weixin_wechat')->where('openid',$openid)->first();
+        //var_dump($res);exit;
         if(empty($res)){
             DB::table('weixin_wechat')->insert($wechatdata);
             echo "<h5>授权成功</h5>";
@@ -430,23 +435,13 @@ class ZffController extends Controller
         $arr = array(
             'button'=>array(
                 array(
-                    "name"=>"不敢问",
-                    "type"=>"click",
-                    "key"=>"aaa",
-                    "sub_button"=>array(
-                        array(
-                            "type"=>"pic_weixin",
-                            "name"=>"发送图片",
-                            "key"=>"aaa",
-                        ),
-                    ),
-                ),
-                array(
                     "name"=>"最新福利",
                     "type"=>"click",
-                    "url"=>"https://img04.sogoucdn.com/app/a/100520024/ee89b873bc8f90af0f7c6de5d9bcade4",
+                    "key"=>"aaa",
+                    "url"=>"http://pic.sogou.com/pics/recompic/detail.jsp?category=%E6%90%9E%E7%AC%91&tag=%E6%90%9E%E7%AC%91%E4%BA%BA%E7%89%A9#12%26487681",
 
                 ),
+
             ),
         );
 
