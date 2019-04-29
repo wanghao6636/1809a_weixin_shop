@@ -444,15 +444,8 @@ class ZffController extends Controller
                 array(
                     "name"=>"最新福利",
                     "type"=>"click",
-                    "key"=>"bbb",
-                    'sub_button'=>array(
-                        array(
-            "name"=>"搞笑",
-            "type"=>"view",
-            "url"=>"https://img04.sogoucdn.com/app/a/100520024/ee89b873bc8f90af0f7c6de5d9bcade4"
+                    "url"=>"https://img04.sogoucdn.com/app/a/100520024/ee89b873bc8f90af0f7c6de5d9bcade4",
 
-                        ),
-                    ),
                 ),
             ),
         );
