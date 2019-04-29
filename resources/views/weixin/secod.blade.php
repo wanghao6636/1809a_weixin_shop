@@ -6,50 +6,7 @@
 
     <title>Laravel</title>
     <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-        .full-height {
-            height: 100vh;
-        }
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-        .position-ref {
-            position: relative;
-        }
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-        .content {
-            text-align: center;
-        }
-        .title {
-            font-size: 84px;
-        }
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
+
 </head>
 <body>
 <div class="flex-center position-ref full-height">
@@ -58,14 +15,58 @@
 
         <div id="qrcode"></div>
         <div class="title m-b-md">
-            <input type="button" value="转发">
+            {{--<input type="button" value="转发">--}}
+            <table border="1">
+                <tr>
+                    <td>ID</td>
+                    <td>名称</td>
+                    <td>价格</td>
+                    <td>数量</td>
+                </tr>
+                @foreach($list as $k=>$v)
+                    <tr>
+                        <td>{{$v['id']}}</td>
+                        <td><a href="key?id={{$v['id']}}">{{$v['name']}}</a></td>
+                        <td>{{$v['price']}}</td>
+                        <td>{{$v['num']}}</td>
+
+                    </tr>
+                @endforeach
+            </table>
         </div>
     </div>
 </div>
 
 <script src="/js/jquery-1.12.4.min.js"></script>
 <script src="/js/qrcode.min.js"></script>
-<script> new QRCode(document.getElementById("qrcode"), "{{$tkurl}}");</script>
+<script>
+    var recode=   new QRCode(document.getElementById("qrcode"),{
+        text:"{{$tkurl}}",
+        width:150,
+        height:150,
+        colorDark:'#000000',
+        colorLight:'#ffffff',
+        correctLevel:QRCode.CorrectLevel.H
+    } );
+
+</script>
 
 </body>
 </html>
+
+
+
+{{--<script>--}}
+    {{--var qrcode = new QRCode('qrcode',{--}}
+        {{--text:'{{$url}}',--}}
+        {{--width:256,--}}
+        {{--height:256,--}}
+        {{--colorDark : '#000000',--}}
+        {{--colorLight : '#ffffff',--}}
+        {{--correctLevel : QRCode.CorrectLevel.H--}}
+    {{--});--}}
+{{--</script>--}}
+
+
+
+

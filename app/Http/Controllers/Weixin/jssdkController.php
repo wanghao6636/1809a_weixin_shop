@@ -21,7 +21,7 @@ class jssdkController extends Controller{
         var_dump($string1);exit;
         $sign=sha1($string1);
 
-        
+
         $appid='wxf45738393e3e870a';
 
         $js_config=[

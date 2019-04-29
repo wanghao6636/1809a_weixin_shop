@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Weixin;
 
 use Illuminate\Http\Request;
 use App\Model\OrderModel;
+use App\Model\GoodsModel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
@@ -32,6 +33,7 @@ class ZffController extends Controller
 
     public  function secod(Request $request)
     {
+
         $access=$this->getaccessToken();
         //var_dump($access);exit;
         $arr=$request->input();
@@ -59,8 +61,74 @@ class ZffController extends Controller
         //var_dump($ticket);exit;
         $tkurl="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket";
         //var_dump($tkurl);exit;
-        return view('weixin.secod',['tkurl'=>$tkurl]);
+        $list=GoodsModel::get()->toArray();
+        //ar_dump($list);exit;
+//        $data=[
+//            'list'=>$list,
+//        ];
+       //var_dump($data);exit;
+
+        return view('weixin.secod',['tkurl'=>$tkurl,'list'=>$list]);
     }
+
+
+    public function index()
+    {
+        $list=GoodsModel::get()->toArray();
+        //ar_dump($list);exit;
+        $data=[
+            'list'=>$list,
+        ];
+       // var_dump($data);exit;
+        return view('weixin.secod',$data);
+    }
+
+//    public function key(Request $request)
+//    {
+//        $input=$request->all();
+//        //echo 111;exit;
+//        //var_dump($id);exit;
+//        $id = intval($_GET['id']);
+//        $key = $id;
+////       print_r($key);die;
+//        $redis_view='ss:goods:view';
+////        print_r($redis_view);die;
+//        $history = Redis::incr($key);
+//        echo $history;
+//        Redis::zAdd($redis_view,$history,$id);
+//        $res = GoodsModel::where(['id'=>$id])->first()->toArray();
+////        print_r($res);die;
+//        $goods_data = [
+//            'key'=>$key
+//        ];
+////        print_r($goods_data);die;
+//        if($res){
+//            GoodsModel::where(['id'=>$id])->update($goods_data);
+//        }else{
+//            $detail = [
+//                'id'=> $id,
+//                'name'=> $res ->name,
+//                'price'=>$res->price,
+//                'num'=>$res->num,
+//                'key_id'=> $res['key_id'] +1
+//            ];
+//            GoodsModel::insertGetId($detail);
+//        }
+//        $data = [
+//            'res' => $res
+//        ];
+//        $list=Redis::zRangeByScore($redis_view,0,10000,['Withscores'=>true]);
+//        $lists=Redis::zRevRange($redis_view,0,1000,true);
+//        $info=[];
+//        foreach ($lists as $k=>$v){
+//            $info[]=GoodsModel::where(['id'=>$k])->first()->toArray();
+//        }
+//        return view('weixin.secod',$data,['info'=>$info]);
+//
+//    }
+
+
+
 
 
     //

@@ -66,9 +66,10 @@ Route::get('/opp','Weixin\ZffController@opp');
 Route::get('/ino','Weixin\ZffController@ino');
 Route::get('getaccessToken','Weixin\ZffController@getaccessToken');
 
-
+//微信二维码
 Route::get('/secod','Weixin\ZffController@secod');
-
+Route::get('/index','Weixin\ZffController@index');
+Route::get('/key','Weixin\ZffController@key');
 //
 //Route::any('info','Weixin\ZffController@info');
 Route::any('xmladd','Weixin\ZffController@xmladd');

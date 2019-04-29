@@ -19,8 +19,9 @@ class KeyController extends Controller
         return view('key.key',$data);
     }
 
-    public function key()
+    public function key(Request $request)
     {
+        $input=$request->all();
         //echo 111;exit;
         //var_dump($id);exit;
         $id = intval($_GET['id']);
