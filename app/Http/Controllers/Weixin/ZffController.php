@@ -70,13 +70,15 @@ class ZffController extends Controller
             ]
         ];
         $json = json_encode($data,JSON_UNESCAPED_UNICODE);
+
         $Client=new Client();
         $response = $Client->request('POST',$url,[
             'body' => $json
         ]);
         $res_str = $response->getBody();
-        //var_dump($json);exit;
+        //var_dump($res_str);exit;
         $ass = json_decode($res_str,true);
+        //var_dump($ass);exit;
         $ticket=$ass['ticket'];
         //var_dump($ticket);exit;
         $tkurl="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket";

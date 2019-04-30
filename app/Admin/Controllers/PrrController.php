@@ -156,5 +156,25 @@ class PrrController extends Controller
         return $form;
     }
 
+    //标签添加
+    public function tally(){
+        $name=request()->input('name');
+        //echo $name;die;
+        $access=getaccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/tags/create?access_token=$access';
+        $a=[
+            "tag" =>["name"=>$name ]
+        ];
+        $data=json_encode($a,JSON_UNESCAPED_UNICODE);
+        //echo $data;die;
+        $client=new Client();
+        $response=$client->request('post',$url,[
+            'body'=>$data
+        ]);
+        $res=$response->getBody();
+        $arr=json_decode($res,true);
+        //echo'<pre>';print_r($arr);echo'</pre>';
+    }
+
 
 }

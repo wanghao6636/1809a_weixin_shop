@@ -94,6 +94,9 @@ Route::get('/serch','Weixin\ZffController@serch');
 Route::get('/getaccessToken','Weixin\YkkController@getaccessToken');
 Route::any('wechat','Weixin\YkkController@wechat');
 Route::any('wechatToken','Weixin\YkkController@wechatToken');
+Route::any('test','Weixin\YkkController@test');
+Route::any('del','Weixin\YkkController@del');
+Route::any('openiddo','Weixin\YkkController@openiddo');
 
 
 

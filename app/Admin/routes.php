@@ -19,4 +19,8 @@ Route::group([
     $router->resource('order', OrdersController::class);
 
     $router->resource('index', PrrController::class);
+
+
+    //月考
+    $router->any('/tally', 'PrrController@tally'); //标签执行
 });
