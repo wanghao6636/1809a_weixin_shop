@@ -88,3 +88,12 @@ Route::get('/serch','Weixin\ZffController@serch');
 
 
 
+
+
+//月考
+Route::get('/getaccessToken','Weixin\YkkController@getaccessToken');
+Route::any('wechat','Weixin\YkkController@wechat');
+Route::any('wechatToken','Weixin\YkkController@wechatToken');
+
+
+
